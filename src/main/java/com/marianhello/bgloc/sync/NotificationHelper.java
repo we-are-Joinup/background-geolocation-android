@@ -23,6 +23,7 @@ public class NotificationHelper {
     public static final String SYNC_CHANNEL_ID = "syncservice";
     public static final String SYNC_CHANNEL_NAME = "Sync Service";
     public static final String SYNC_CHANNEL_DESCRIPTION = "Shows sync progress";
+    private static final int FLAG_MUTABLE = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ? PendingIntent.FLAG_MUTABLE : 0;
 
     public static class NotificationFactory {
         private Context mContext;
@@ -74,7 +75,7 @@ public class NotificationHelper {
             if (launchIntent != null) {
                 // NOTICE: testing apps might not have registered launch intent
                 launchIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                PendingIntent contentIntent = PendingIntent.getActivity(appContext, 0, launchIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+                PendingIntent contentIntent = PendingIntent.getActivity(appContext, 0, launchIntent, PendingIntent.FLAG_CANCEL_CURRENT | FLAG_MUTABLE);
                 builder.setContentIntent(contentIntent);
             }
 
